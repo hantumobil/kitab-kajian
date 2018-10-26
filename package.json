@@ -18,5 +18,8 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "tabletop": "^1.5.2"
+  },
+  "devDependencies": {
+    "dotenv": "^6.1.0"
   }
 }

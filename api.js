@@ -1,7 +1,9 @@
 const Tabletop = require('tabletop');
 const config = require('./config');
-const spreadSheetDataKey = config.spreadSheetDataKey;
-const kitabSheetName = config.kitabSheetName;
+const spreadSheetDataKey = process.env.DATA_KEY;
+const kitabSheetName = process.env.KITAB_SHEET_NAME;
+console.log(spreadSheetDataKey);
+console.log(kitabSheetName);
 
 let data;
 async function init() {
