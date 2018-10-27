@@ -1,4 +1,3 @@
-require('dotenv/config');
 const express = require('express');
 const next = require('next');
 
@@ -15,19 +14,32 @@ app.prepare()
         server.get('/:id', async (req, res, next) => {
             const actualPage = '/kitab';
             const id = req.params.id;
-            const data = await api.hadits.list(id);
-            if (data !== undefined) {
-                const queryParams = { title: 'anything-' + id, id: id, hadits: data.elements};
-                app.render(req, res, actualPage, queryParams);
-            } else {
-                next();
-            }
+            let queryParams = Object.create(null);
+            api.hadits.list(id, (err, _hadits) => {
+                if (!err) {
+                    queryParams.hadits = _hadits;
+                    api.kitab.get(id, (err, _kitab) => {
+                        if (!err) {
+                            queryParams.kitab = _kitab;
+                            app.render(req, res, actualPage, queryParams);
+                        } else {
+                            next();
+                        }
+                    });
+                } else {
+                    next();
+                }
+            });
         });
 
         server.get('/kitab/list', async (req, res, next) => {
-            const kitabList = await api.kitab.list();
-            res.send(kitabList);
-            next();
+            api.kitab.list((err, list) => {
+                if (!err) {
+                    res.send(list);
+                } else {
+                    next();
+                }
+            });
         });
 
         server.get('*', (req, res) => {

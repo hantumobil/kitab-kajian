@@ -25,5 +25,7 @@ const Kitab = (props) => {
     );
 };
 
+// write initial props here
+
 
 export default Kitab;
