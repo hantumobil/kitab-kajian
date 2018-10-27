@@ -1,5 +1,4 @@
 const Tabletop = require('tabletop');
-const config = require('./config');
 const spreadSheetDataKey = process.env.DATA_KEY;
 const kitabSheetName = process.env.KITAB_SHEET_NAME;
 console.log(spreadSheetDataKey);
